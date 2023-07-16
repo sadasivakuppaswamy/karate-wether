@@ -22,7 +22,7 @@ Feature: location
 
 
 
-  @wetherExample
+  @wetherReportUsingExample
   Scenario Outline: get weather for lang and lat
     * def query = { lat: '<lat>', lon: '<lon>',key: '#(API_KEY)' }
     * def wetherreport = call read('../api/currentweather.feature@currentwetherBylonlat') {paramDetails: #(query)}
@@ -35,7 +35,7 @@ Feature: location
       | -43.00311   | 113.6594|
       | 54          | 2     |
 
-  @wethertable
+  @wetherReportUsingtable
   Scenario Outline: get weather for lang and lat with table
 
     * table weather
@@ -54,7 +54,7 @@ Feature: location
       | weather[0]|
       | weather[1] |
 
-  @wetherErrorCases
+  @wetherReportErrorCases
   Scenario Outline: get weather for lang and lat with table - Error Cases
 
     * table weather
