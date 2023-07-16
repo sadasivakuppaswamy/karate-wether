@@ -130,7 +130,21 @@ Navigate to the project and perform below actions to run all tests
     ./gradlew clean build
     ./gradlew test
 ```
-with parameters[Facing issue -working on it]
+with parameters
 ```gitexclude
-./gradlew test -Dtags=@desiredtag -Denv=QA1 -Dparallel=3 -DAPI_KEY="XXXXXXXXX"
+./gradlew test -Dparallel=4 -DAPI_KEY=XXXXX -Denv=QA2 "-Dkarate.options=--tags @wetherSingle,@wetherExample"
+
 ```
+
+##Open Items
+Executing only one feature file - Not working
+```
+./gradlew test -Dtest.single=weatherReportLonLat -DAPI_KEY=XXXXX
+./gradlew test --tests *weatherReportLonLat -DAPI_KEY=XXXXX
+```
+#CircleCi Integration
+
+Create an account with CircleCi and create project against repo
+Mention repo's config.yml to use while building
+
+After every run[runs for every push] check artifacts for reports

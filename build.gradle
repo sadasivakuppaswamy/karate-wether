@@ -63,6 +63,7 @@ test {
     doFirst {
         def env = System.properties.getProperty("env")?"${System.getProperty("env")}" : "QA1"
         systemProperty "karate.env", env
+        //systemProperty "cucumber_options","--tags",System.properties.getProperty("tags")
         systemProperty "tags", System.getProperty("tag") ? "${System.getProperty("tags")}" : ""
         systemProperty "parallel", System.getProperty("parallel") ? "${System.getProperty("parallel")}" : "3"
         systemProperty "BaseURL", baseUrls[env]
@@ -96,7 +97,7 @@ test {
     // Pull karate options into the runtime
     systemProperty "karate.options", System.properties.getProperty("karate.options")
     // Pull karate options into the JVM
-    //systemProperty "karate.env", System.properties.getProperty("karate.env")
+    systemProperty "karate.env", System.properties.getProperty("karate.env")
     // Ensure tests are always run
     outputs.upToDateWhen { false }
     // attach debugger
