@@ -23,9 +23,15 @@ Intellij IDEA:
 # To execute manually 
 From IDE -> select and run APITest java file
 # Project Structure
+![API implementation structure](https://github.com/sadasivakuppaswamy/karate-wether/assets/10988106/d27aaa0b-3cac-4bb4-9208-f8683643d8b0)
 
 
 # Report structure
+Under reports->cucumber-html-reports->open over-features.html
+![karate reports](https://github.com/sadasivakuppaswamy/karate-wether/assets/10988106/30ba64a8-2349-4e9e-92c4-e7c9376219c9)
+
+And report will look like
+![cucumber reports](https://github.com/sadasivakuppaswamy/karate-wether/assets/10988106/e16d93da-cd59-4bcf-829c-9fb8e402a670)
 
 # implementation
 API implementation is seperated from feature files so maintanace will be more
