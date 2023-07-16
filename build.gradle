@@ -58,21 +58,21 @@ task karateDebug(type: JavaExec) {
     classpath = sourceSets.test.runtimeClasspath
     main = 'com.intuit.karate.cli.Main'
 }
-def baseUrls=["QA1":"http://api.weatherbit.io","QA2":"http2://api.weatherbit.io"]
+def baseUrls=["QA1":"http://api.weatherbit.io","QA2":"https://api.weatherbit.io"]
 test {
     doFirst {
         def env = System.properties.getProperty("env")?"${System.getProperty("env")}" : "QA1"
         systemProperty "karate.env", env
-        systemProperty "tag", System.getProperty("tag") ? "${System.getProperty("tag")}" : ""
-        systemProperty "parallel", System.getProperty("parallel") ? "${System.getProperty("parallel")}" : "1"
+        systemProperty "tags", System.getProperty("tag") ? "${System.getProperty("tags")}" : ""
+        systemProperty "parallel", System.getProperty("parallel") ? "${System.getProperty("parallel")}" : "3"
         systemProperty "BaseURL", baseUrls[env]
-        systemProperty "API_KEY", System.getProperty("API_KEY") ? "${System.getProperty("API_KEY")}" : "ce735350b0ed424d8e39fc071853ff6f"
+        systemProperty "API_KEY", System.getProperty("API_KEY") ? "${System.getProperty("API_KEY")}" : "dsfsd"
         //systemProperty "karate.baseUrl", findBaseURL(systemProperties.get('karate.env'))
         println "ENV valiable values: "
         println systemProperties.get("API_KEY")
         println env
         println systemProperties.get("BaseURL")
-
+        println systemProperties.get("tags")
         //systemProperty "karate.API_KEY", System.properties.getProperty("karate.API_KEY")
     }
 

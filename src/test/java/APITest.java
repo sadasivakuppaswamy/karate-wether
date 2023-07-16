@@ -34,19 +34,21 @@ public class APITest {
     @Test
     public void testParallel() {
         String parallel = System.getProperty("parallel");
-        int parallelCount = (null == parallel) ? 30 : Integer.parseInt(parallel);
+        int parallelCount = (null == parallel) ? 1 : Integer.parseInt(parallel);
         System.out.println("Parallel count: " + parallelCount);
 
-        String customTagsToRun = System.getProperty("tag");
+        String customTagsToRun = System.getProperty("tags");
+        System.out.println("Run time tags passed Before - " + customTagsToRun);
+
         String[] str2 = customTagsToRun.replace("[","").replace("]","").trim().split(",");
         List<String> customTags = Arrays.asList(str2);
-        List<String> strings = new ArrayList<>();
-        strings.add("~@template");
-        strings.add("@wetherbypostal");
+        System.out.println("Run time tags passed - " + customTags);
+        String[] tags = {"~@template","@wetherbypostal"};
+        List<String> definedTags = Arrays.asList(tags);
         //strings.addAll(customTags);
-        if ((null != customTagsToRun) && (!customTagsToRun.trim().isEmpty())) { strings.addAll(customTags); }
-        System.out.println("Run tests with tag - " + strings);
-        results = Runner.path("classpath:features").outputCucumberJson(true).tags(strings).parallel(5);
+        if ((null != customTagsToRun) && (!customTagsToRun.trim().isEmpty())) { definedTags.addAll(customTags); }
+        System.out.println("Run tests with tag - " + definedTags);
+        results = Runner.path("classpath:features").outputCucumberJson(true).tags(definedTags).parallel(parallelCount);
               //  .outputCucumberJson(true).reportDir("reports/surefire-reports").parallel(parallelCount);
     }
 
