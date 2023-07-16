@@ -44,3 +44,7 @@ jobs:
 
       # run tests!
       - run: gradle test
+      - store_artifacts:
+          path: ~/repo/reports
+      - store_test_results:
+          path: ~/repo/reports
