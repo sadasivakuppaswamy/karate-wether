@@ -1,4 +1,4 @@
-@locationtest
+@wetherreportbylonlat
 Feature: location
 
   Background:

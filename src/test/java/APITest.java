@@ -43,7 +43,7 @@ public class APITest {
         String[] str2 = customTagsToRun.replace("[","").replace("]","").trim().split(",");
         List<String> customTags = Arrays.asList(str2);
         System.out.println("Run time tags passed - " + customTags);*/
-        String[] tags = {"~@template","@wetherbypostal"};
+        String[] tags = {"~@template","@wetherbypostal","@wetherreportbylonlat"};
         List<String> definedTags = Arrays.asList(tags);
         //strings.addAll(customTags);
         /*if ((null != customTagsToRun) && (!customTagsToRun.trim().isEmpty())) { definedTags.addAll(customTags); }
