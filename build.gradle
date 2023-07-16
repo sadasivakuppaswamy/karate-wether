@@ -105,21 +105,6 @@ test {
     }
 
 }
-def findBaseURL(val) {
-    def result
-    switch (val) {
-        case "QA1":
-            result = 'http://api.weatherbit.io'
-            break
-        case "QA2":
-            result = 'https://api.weatherbit.io'
-            break
-        default:
-            result = 'http://api.weatherbit.io'
-            break
-    }
-    result
-}
 clean.doFirst {
     delete "${rootDir}/target"
     delete "${rootDir}/bin"
