@@ -1,0 +1,141 @@
+buildscript {
+    ext {
+        gradleVersionProperty = '6.3'
+        karateVersion = '0.9.+'
+        masterThoughtVersion = '5.+'
+        junitVersion = '4.13.+'
+    }
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
+    }
+}
+
+plugins {
+    id 'project-report'
+    id 'eclipse'
+    id 'java'
+    id 'idea'
+}
+
+project.ext.logDir = "${rootDir}/reports"
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+sourceSets {
+    test {
+        java {
+            srcDir file('src/test/java')
+        }
+        resources {
+            srcDir file('src/test/java')
+            exclude '**/*.java'
+        }
+    }
+}
+
+dependencies {
+    testImplementation  'junit:junit:' + junitVersion
+    testImplementation  'com.intuit.karate:karate-junit5:' + karateVersion
+    testImplementation  'com.intuit.karate:karate-apache:' + karateVersion
+    testImplementation  'net.masterthought:cucumber-reporting:' + masterThoughtVersion
+    testImplementation  group: 'commons-codec', name: 'commons-codec', version: '1.14'
+}
+
+task karateExecute(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = 'com.intuit.karate.cli.Main'
+}
+
+task karateDebug(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = 'com.intuit.karate.cli.Main'
+}
+def baseUrls=["QA1":"http://api.weatherbit.io","QA2":"http2://api.weatherbit.io"]
+test {
+    doFirst {
+        def env = System.properties.getProperty("env")?"${System.getProperty("env")}" : "QA1"
+        systemProperty "karate.env", env
+        systemProperty "tag", System.getProperty("tag") ? "${System.getProperty("tag")}" : ""
+        systemProperty "parallel", System.getProperty("parallel") ? "${System.getProperty("parallel")}" : "1"
+        systemProperty "BaseURL", baseUrls[env]
+        systemProperty "API_KEY", System.getProperty("API_KEY") ? "${System.getProperty("API_KEY")}" : "ce735350b0ed424d8e39fc071853ff6f"
+        //systemProperty "karate.baseUrl", findBaseURL(systemProperties.get('karate.env'))
+        println "ENV valiable values: "
+        println systemProperties.get("API_KEY")
+        println env
+        println systemProperties.get("BaseURL")
+
+        //systemProperty "karate.API_KEY", System.properties.getProperty("karate.API_KEY")
+    }
+
+    //reports.required = true
+    reports.html.setDestination(file("${project.logDir}/html"))
+
+    //reports.junitXml.enabled = true
+    reports.junitXml.setDestination(file("${project.logDir}/junit"))
+    testLogging {
+        events "started", "passed", "skipped", "failed"
+        // show standard out and standard error of the test JVM(s) on the console
+        showStandardStreams = true
+        // show full exception trace
+        exceptionFormat = 'full'
+        showStackTraces = true
+        showCauses = true
+        showExceptions = true
+    }
+
+    include '**/*APITest*'
+    // Pull karate options into the runtime
+    systemProperty "karate.options", System.properties.getProperty("karate.options")
+    // Pull karate options into the JVM
+    //systemProperty "karate.env", System.properties.getProperty("karate.env")
+    // Ensure tests are always run
+    outputs.upToDateWhen { false }
+    // attach debugger
+    if (System.getProperty('debug', 'false') == 'true') {
+        jvmArgs '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=9009'
+    }
+
+}
+def findBaseURL(val) {
+    def result
+    switch (val) {
+        case "QA1":
+            result = 'http://api.weatherbit.io'
+            break
+        case "QA2":
+            result = 'https://api.weatherbit.io'
+            break
+        default:
+            result = 'http://api.weatherbit.io'
+            break
+    }
+    result
+}
+clean.doFirst {
+    delete "${rootDir}/target"
+    delete "${rootDir}/bin"
+    delete "${rootDir}/build"
+    delete "${rootDir}/out"
+    delete "${rootDir}/reports"
+    println "Clean: Deleted bin, build, out, target and reports directories"
+}
+
+clean.doLast {
+    mkdir  "${rootDir}/reports"
+    println "Created reports directory"
+}
+
+test.dependsOn clean
+
+wrapper {
+    gradleVersion = gradleVersionProperty
+}
