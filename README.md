@@ -18,8 +18,9 @@ Intellij IDEA:
  add plugins required(karate plugin)
 
 # clone repository 
-# Gradle command
-
+`` 
+git clone git@github.com:sadasivakuppaswamy/karate-wether.git
+``
 # To execute manually 
 From IDE -> select and run APITest java file
 # Project Structure
