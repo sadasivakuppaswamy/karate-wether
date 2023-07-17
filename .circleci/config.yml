@@ -1,6 +1,6 @@
 # Java Gradle CircleCI 2.0 configuration file
 # See: https://circleci.com/docs/language-java/
-version: 2
+version: 2.1
 workflows:
   test-env-vars:
     jobs:
@@ -47,7 +47,7 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
       # run tests!
-      - run: gradle test -Dparallel=$parallel -DAPI_KEY=$api_key -Denv=$env
+      - run: gradle test -Dparallel=${parallel} -DAPI_KEY=${api_key} -Denv=${env}
       - store_artifacts:
           path: ~/repo/reports
       - store_test_results:
