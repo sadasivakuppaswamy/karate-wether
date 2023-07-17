@@ -47,13 +47,13 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
       - run:
           name: "Setup  environment variables"
-          command: echo ${PARALLEL}
+          command: echo ${PARALLEL} >> "$BASH_ENV"
       - run:
           name: "Setup  environment variables"
-          command: echo ${API_KEY}
+          command: echo ${API_KEY} >> "$BASH_ENV"
       - run:
           name: "Setup  environment variables"
-          command: echo ${ENV}
+          command: echo ${ENV} >> "$BASH_ENV"
       # run tests!
       - run:
           command: gradle test -Dparallel=${PARALLEL} -DAPI_KEY=${API_KEY} -Denv=${ENV}
