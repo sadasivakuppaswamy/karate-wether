@@ -145,6 +145,16 @@ Executing only one feature file - Not working
 #CircleCi Integration
 
 Create an account with CircleCi and create project against repo
-Mention repo's config.yml to use while building
+Mention repo's config.yml to use building
+```
+      - run:
+          command: gradle test -Dparallel=${PARALLEL} -DAPI_KEY=${KEY_DATA} -Denv=${ENV} "-Dkarate.options=--tags $TAGS"
+      - store_artifacts:
+          path: ~/repo/reports
+      - store_test_results:
+          path: ~/repo/reports
+```
+above code runs build and pushes artifacts to reports folder
 
-After every run[runs for every push] check artifacts for reports
+Verify reports from artifacts in circleCi as shown below
+
