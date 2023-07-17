@@ -49,7 +49,7 @@ jobs:
           name: "ENV variablas parallel"
           command: echo ${parallel}
       # run tests!
-      - run: gradle test -Dparallel=${parallel} -DAPI_KEY=${api_key} -Denv=${env}
+      - run: gradle test -Dparallel = ${parallel} -DAPI_KEY = ${api_key} -Denv = ${env}
       - store_artifacts:
           path: ~/repo/reports
       - store_test_results:
