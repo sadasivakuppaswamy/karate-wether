@@ -55,7 +55,8 @@ jobs:
           name: "Setup  environment variables"
           command: echo ${ENV}
       # run tests!
-      - run: gradle test -Dparallel = ${PARALLEL} -DAPI_KEY = ${API_KEY} -Denv = ${ENV}
+      - run:
+          command: gradle test -Dparallel=${PARALLEL} -DAPI_KEY=${API_KEY} -Denv=${ENV}
       - store_artifacts:
           path: ~/repo/reports
       - store_test_results:
