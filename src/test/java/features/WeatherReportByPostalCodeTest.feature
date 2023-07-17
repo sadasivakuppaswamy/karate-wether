@@ -1,4 +1,4 @@
-@wetherbypostal
+@wetherbypostal @All
 Feature: location
 
   Background:

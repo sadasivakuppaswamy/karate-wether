@@ -114,12 +114,10 @@ Using table and example options data driven testing can be achieved.
       | weather[0]|
       | weather[1] |
 ```
-# Filter tests based on tags
+# Filter tests based on tags - Not worked after few changes[Will check]
 From APITest filter test by adding it to list,by default add feature tags to this list
 ```
-        List<String> strings = new ArrayList<>();
-        strings.add("~@template");
-        strings.add("@wetherbypostal");
+        String[] tags = {"~@template","@wetherbypostal","@wetherreportbylonlat"};
 ```
 `
    ~ means exclude
@@ -130,7 +128,39 @@ Navigate to the project and perform below actions to run all tests
     ./gradlew clean build
     ./gradlew test
 ```
-with parameters[Facing issue -working on it]
+with parameters
 ```gitexclude
-./gradlew test -Dtags=@desiredtag -Denv=QA1 -Dparallel=3 -DAPI_KEY="XXXXXXXXX"
+./gradlew test -Dparallel=4 -DAPI_KEY=XXXXX -Denv=QA2 "-Dkarate.options=--tags @wetherSingle,@wetherExample"
+
 ```
+
+##Open Items
+Executing only one feature file - Not working
+```
+./gradlew test -Dtest.single=weatherReportLonLat -DAPI_KEY=XXXXX
+./gradlew test --tests *weatherReportLonLat -DAPI_KEY=XXXXX
+```
+# CircleCi Integration
+
+Create an account with CircleCi and create project against repo
+Mention repo's config.yml to use building
+Add env variable in CircleCI
+
+![circle ci env varibles](https://github.com/sadasivakuppaswamy/karate-wether/assets/10988106/4de2466d-1907-4016-87f8-4a55c40b1076)
+
+Runs build and pushes artifacts to reports folder
+ 
+```
+      - run:
+          command: gradle test -Dparallel=${PARALLEL} -DAPI_KEY=${KEY_DATA} -Denv=${ENV} "-Dkarate.options=--tags $TAGS"
+      - store_artifacts:
+          path: ~/repo/reports
+      - store_test_results:
+          path: ~/repo/reports
+```
+
+
+
+Verify reports from artifacts in circleCi as shown below
+![circle ci reports](https://github.com/sadasivakuppaswamy/karate-wether/assets/10988106/0a413ae5-6fcc-4849-ab97-b215574115df)
+
