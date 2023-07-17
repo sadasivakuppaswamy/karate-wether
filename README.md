@@ -144,6 +144,12 @@ Executing only one feature file - Not working
 
 Create an account with CircleCi and create project against repo
 Mention repo's config.yml to use building
+Add env variable in CircleCI
+
+![circle ci env varibles](https://github.com/sadasivakuppaswamy/karate-wether/assets/10988106/4de2466d-1907-4016-87f8-4a55c40b1076)
+
+Runs build and pushes artifacts to reports folder
+ 
 ```
       - run:
           command: gradle test -Dparallel=${PARALLEL} -DAPI_KEY=${KEY_DATA} -Denv=${ENV} "-Dkarate.options=--tags $TAGS"
@@ -152,7 +158,9 @@ Mention repo's config.yml to use building
       - store_test_results:
           path: ~/repo/reports
 ```
-above code runs build and pushes artifacts to reports folder
+
+
 
 Verify reports from artifacts in circleCi as shown below
+![circle ci reports](https://github.com/sadasivakuppaswamy/karate-wether/assets/10988106/0a413ae5-6fcc-4849-ab97-b215574115df)
 
