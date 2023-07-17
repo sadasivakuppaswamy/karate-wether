@@ -56,7 +56,7 @@ jobs:
           command: echo ${ENV} >> "$BASH_ENV"
       # run tests!
       - run:
-          command: gradle test -Dparallel=${PARALLEL} -DAPI_KEY=${KEY_DATA} -Denv=${ENV}
+          command: gradle test -Dparallel=${PARALLEL} -DAPI_KEY=${KEY_DATA} -Denv=${ENV} "-Dkarate.options=--tags $TAGS"
       - store_artifacts:
           path: ~/repo/reports
       - store_test_results:

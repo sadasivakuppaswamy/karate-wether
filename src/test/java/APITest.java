@@ -46,8 +46,8 @@ public class APITest {
         String[] tags = {"~@template","@wetherbypostal","@wetherreportbylonlat"};
         List<String> definedTags = Arrays.asList(tags);
         //strings.addAll(customTags);
-        /*if ((null != customTagsToRun) && (!customTagsToRun.trim().isEmpty())) { definedTags.addAll(customTags); }
-        System.out.println("Run tests with tag - " + definedTags);*/
+        //if ((null != customTagsToRun) && (!customTagsToRun.trim().isEmpty())) { definedTags.addAll(customTags); }
+        System.out.println("Run tests with tag - " + definedTags);
         results = Runner.path("classpath:features").outputCucumberJson(true).tags(definedTags).parallel(parallelCount);
               //  .outputCucumberJson(true).reportDir("reports/surefire-reports").parallel(parallelCount);
     }
