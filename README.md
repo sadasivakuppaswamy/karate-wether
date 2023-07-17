@@ -114,12 +114,10 @@ Using table and example options data driven testing can be achieved.
       | weather[0]|
       | weather[1] |
 ```
-# Filter tests based on tags
+# Filter tests based on tags - Not worked after few changes[Will check]
 From APITest filter test by adding it to list,by default add feature tags to this list
 ```
-        List<String> strings = new ArrayList<>();
-        strings.add("~@template");
-        strings.add("@wetherbypostal");
+        String[] tags = {"~@template","@wetherbypostal","@wetherreportbylonlat"};
 ```
 `
    ~ means exclude
@@ -142,7 +140,7 @@ Executing only one feature file - Not working
 ./gradlew test -Dtest.single=weatherReportLonLat -DAPI_KEY=XXXXX
 ./gradlew test --tests *weatherReportLonLat -DAPI_KEY=XXXXX
 ```
-#CircleCi Integration
+# CircleCi Integration
 
 Create an account with CircleCi and create project against repo
 Mention repo's config.yml to use building
