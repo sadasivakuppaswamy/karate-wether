@@ -14,11 +14,13 @@ Feature: location
 
   @wetherSingle
   Scenario: get weather for lang and lat
-        * def query = { lat: '-43.00311', lon: '113.6594',key: '#(API_KEY)' }
+        * def query = { lat: '-43.0031', lon: '113.6594',key: '#(API_KEY)' }
     * def wetherreport = call read('../api/currentweather.feature@currentwetherBylonlat') {paramDetails: #(query)}
     * match wetherreport.responseStatus == 200
     And print wetherreport.response
     * match wetherreport.response == read('../json/weather.json')
+    * match wetherreport.response.data[0].lat ==-43.0031
+    * match wetherreport.response.data[0].lon ==113.6594
 
 
 
@@ -29,10 +31,12 @@ Feature: location
     * match wetherreport.responseStatus == 200
     And print wetherreport.response
     * match wetherreport.response == read('../json/weather.json')
+    * assert wetherreport.response.data[0].lon == <lon>
+    * assert wetherreport.response.data[0].lat == <lat>
 
     Examples:
       | lat         |  lon |
-      | -43.00311   | 113.6594|
+      | -43.0031   | 113.6594|
       | 54          | 2     |
 
   @wetherReportUsingtable
@@ -40,14 +44,13 @@ Feature: location
 
     * table weather
       | lat   | lon |
-      | -43.00311   | 113.6594|
+      | -43.0031   | 113.6594|
       | 54          | 2     |
     * def query = { lat: '#(<weatherdate>["lat"])', lon: '#(<weatherdate>["lon"])',key: '#(API_KEY)' }
     * def wetherreport = call read('../api/currentweather.feature@currentwetherBylonlat') {paramDetails: #(query)}
     * match wetherreport.responseStatus == 200
     And print wetherreport.response
     * match wetherreport.response == read('../json/weather.json')
-    #* match wetherreport.response['data']['lon'] == 11
 
     Examples:
       |weatherdate|
