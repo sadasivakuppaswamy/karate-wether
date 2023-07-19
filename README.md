@@ -1,6 +1,6 @@
 # karate-wether
 # Introduction
-In this project the most common examples of testing with the Karate framework are applied
+In this project the most common examples of testing with the Karate framework are covered
 # API testing with karate
 Karate is the  open-source tool to combine API test-automation and ease of response validation and faster development.
 
@@ -16,7 +16,9 @@ Gradle 6.3 - install gradle and setup GRADLE_HOME env variable and add $GRADLE_H
 
 Intellij IDEA: 
  add plugins required(karate plugin)
-
+# Account and API Key details
+As we are using weatherbit endpoints,we need to fetch API key by signing in.
+https://www.weatherbit.io/api/swaggerui/weather-api-v2#/ - check this site and sign in to get API Key
 # clone repository 
 `` 
 git clone git@github.com:sadasivakuppaswamy/karate-wether.git

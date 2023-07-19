@@ -18,7 +18,7 @@ Feature: location
     * match wetherreport.responseStatus == 200
     And print wetherreport.response
     * match wetherreport.response == read('../json/weather.json')
-
+    * assert wetherreport.response.data[0].city_name == "North Sydney"
 
 
   @getWetherByPostalUsingExample
@@ -28,11 +28,12 @@ Feature: location
     * match wetherreport.responseStatus == 200
     And print wetherreport.response
     * match wetherreport.response == read('../json/weather.json')
+    * assert wetherreport.response.data[0].city_name == <city>
 
     Examples:
-      | postalcode   |
-      | 2055   |
-      | 517415      |
+      | postalcode   |city|
+      | 2055   |"North Sydney"|
+      | 517415      |"Palmaner"|
 
   @getWetherByPostalUsingTableAndExample
   Scenario Outline: Get weather for postal code
@@ -46,7 +47,7 @@ Feature: location
     * match wetherreport.responseStatus == 200
     And print wetherreport.response
     * match wetherreport.response == read('../json/weather.json')
-    #* match wetherreport.response['data']['lon'] == 11
+
 
     Examples:
       |postalCodeData|
